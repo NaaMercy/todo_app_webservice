@@ -1,0 +1,31 @@
+{
+  "name": "todo_webservice",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Webservice for a mobile todo app created in flutter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NaaMercy/todo_app_webservice.git"
+  },
+  "keywords": [
+    "node.js"
+  ],
+  "author": "NaaMercy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NaaMercy/todo_app_webservice/issues"
+  },
+  "homepage": "https://github.com/NaaMercy/todo_app_webservice#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
