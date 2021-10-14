@@ -8,14 +8,13 @@ dotenv.config()
 const app = express();
 //getting values in json format
 app.use(express.json());
-const port = 3000;
+const port = 3000 || process.env.PORT;
 const db = process.env.DB_URL;
 
 
 Mongoose.connect('mongodb+srv://db_admin:admin1234@cluster0.xzybz.mongodb.net/todo_db?retryWrites=true&w=majority',{
     useNewUrlParser: true,
-
-
+    useUnifiedTopology: true,
 }).then(() =>{
     console.log('Connected to MongoDB');
 }).catch((err) =>{
@@ -28,7 +27,7 @@ Mongoose.connect('mongodb+srv://db_admin:admin1234@cluster0.xzybz.mongodb.net/to
 //patch one todo
 
 app.get('/', (req, res) =>{
-    return res.statusCode(200).json({
+    return res.status(200).json({
         message: "Welcome to the todo API."
     })
 })
