@@ -1,13 +1,20 @@
+import dotenv from 'dotenv'
 import express from 'express';
 import Mongoose  from 'mongoose';
 import TodoModel from './schemas/todo_schema.js';
+
+dotenv.config()
 
 const app = express();
 //getting values in json format
 app.use(express.json());
 const port = 3000;
+const db = process.env.DB_URL;
 
-Mongoose.connect('mongodb://localhost/todo_db',{
+
+Mongoose.connect('mongodb+srv://db_admin:admin1234@cluster0.xzybz.mongodb.net/todo_db?retryWrites=true&w=majority',{
+    useNewUrlParser: true,
+
 
 }).then(() =>{
     console.log('Connected to MongoDB');
