@@ -17,11 +17,12 @@ const todoSchema = Schema({
     },
     status:{
         type: Boolean,
-        required: false
+        required: false,
+        default: false
     }
 })
 
-const todoModel = model('todo',
+const todoModel = model('todos',
 todoSchema)
 
 //to enable exporting the module to a file

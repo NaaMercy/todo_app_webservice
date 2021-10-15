@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express';
-import Mongoose  from 'mongoose';
+import Mongoose from 'mongoose';
 import TodoModel from './schemas/todo_schema.js';
 import cors from 'cors';
 
@@ -16,12 +16,12 @@ const port = 3000 || process.env.PORT;
 const db = process.env.DB_URL;
 
 
-Mongoose.connect(db,{
+Mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then(() =>{
+}).then(() => {
     console.log('Connected to MongoDB');
-}).catch((err) =>{
+}).catch((err) => {
     console.log(err);
 })
 //get all todos
@@ -30,46 +30,46 @@ Mongoose.connect(db,{
 //delete todo
 //patch one todo
 
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
     return res.status(200).json({
         message: "Welcome to the todo API."
     })
 })
 
 ///get all todos
-app.get('/todos/:status', async (req, res) =>{
-    const {status} = req.params;
+app.get('/todos/:status', async (req, res) => {
+    const { status } = req.params;
     console.log('Fetch todo status', status);
-    const todoModel = await TodoModel.find({status:status});
-    if (todoModel){
+    const todoModel = await TodoModel.find({ status: status });
+    if (todoModel) {
         return res.status(200).json({
-            status : true,
+            status: true,
             message: "Todos fetched successfully",
             data: todoModel
-            
+
         })
-    }else{
+    } else {
         return res.status(400).json({
             status: false,
             message: "Todos not found",
         })
     }
-    })
+})
 
 
 ///get one todo
-app.get('/todos/:id',async (req, res) =>{
-    const {id} = req.params;
+app.get('/todos/:id', async (req, res) => {
+    const { id } = req.params;
     console.log('Fetch todo status', id);
     const todoModel = await TodoModel.findById(id);
-    if (todoModel){
+    if (todoModel) {
         return res.status(200).json({
-            status : true,
+            status: true,
             message: "Todos fetched successfully",
             data: todoModel
-            
+
         })
-    }else{
+    } else {
         return res.status(400).json({
             status: false,
             message: "Todos not found",
@@ -78,22 +78,22 @@ app.get('/todos/:id',async (req, res) =>{
 })
 
 ///create one todo
-app.post('/todo', async (req, res) =>{
-    const {title,description,date_time} = req.body;
-    console.log('Fetch todo status', {title,description,date_time});
+app.post('/todo', async (req, res) => {
+    const { title, description, date_time } = req.body;
+    console.log('Fetch todo status', { title, description, date_time });
     const todoModel = await TodoModel.create({
         title,
         description,
         date_time
     })
-    if (todoModel){
+    if (todoModel) {
         return res.status(201).json({
-            status : true,
+            status: true,
             message: "Todos created",
             data: todoModel
-            
+
         })
-    }else{
+    } else {
         return res.status(400).json({
             status: false,
             message: "Todos not created",
@@ -102,21 +102,21 @@ app.post('/todo', async (req, res) =>{
 })
 
 ///update a todo
-app.patch('/todos/:id', async (req, res) =>{
-    const {id} =req.params;
-    
-    const{status}=req.body;
+app.patch('/todos/:id', async (req, res) => {
+    const { id } = req.params;
+
+    const { status } = req.body;
     console.log('Fetch todo status', status);
-    const todoModel= await TodoModel.updateOne(
-        {status:status}).where({_id : id})
-    
-    if (todoModel){
+    const todoModel = await TodoModel.updateOne(
+        { status: status }).where({ _id: id })
+
+    if (todoModel) {
         return res.status(200).json({
-            status : true,
+            status: true,
             message: "Todos updated successfully",
-            data: todoModel    
+            data: todoModel
         })
-    }else{
+    } else {
         return res.status(400).json({
             status: false,
             message: "Todos failed to update",
@@ -124,23 +124,23 @@ app.patch('/todos/:id', async (req, res) =>{
     }
 })
 
-app.delete('/todos/:id', async (req, res) =>{
+app.delete('/todos/:id', async (req, res) => {
     const todoModel = await TodoModel.findByIdAndDelete(req.params.id);
-    if (todoModel){
+    if (todoModel) {
         return res.status(200).json({
-            status : true,
+            status: true,
             message: "Todo deleted",
             data: todoModel
-            
+
         })
-    }else{
+    } else {
         return res.status(400).json({
             status: false,
             message: "Failed to delete",
         })
-}
+    }
 
-    })
-    
+})
+
 //listening to port
-app.listen(port, ()=> console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
