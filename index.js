@@ -10,7 +10,7 @@ const app = express();
 //getting values in json format
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 const port = 3000 || process.env.PORT;
 const db = process.env.DB_URL;
@@ -40,7 +40,7 @@ app.get('/', (req, res) =>{
 app.get('/todos/:status', async (req, res) =>{
     const {status} = req.params;
     console.log('Fetch todo status', status);
-    const todoModel = await TodoModel.find({}).where('status').equals(status);
+    const todoModel = await TodoModel.find({status:status});
     if (todoModel){
         return res.status(200).json({
             status : true,
