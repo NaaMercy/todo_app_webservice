@@ -28,6 +28,7 @@
     "mongoose": "^6.0.10"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "nodemon": "^2.0.13"
   }
 }
