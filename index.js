@@ -39,6 +39,7 @@ app.get('/', (req, res) =>{
 ///get all todos
 app.get('/todos/:status', async (req, res) =>{
     const {status} = req.params;
+    console.log('Fetch todo status', status);
     const todoModel = await TodoModel.find({}).where('status').equals(status);
     if (todoModel){
         return res.status(200).json({
@@ -59,6 +60,7 @@ app.get('/todos/:status', async (req, res) =>{
 ///get one todo
 app.get('/todos/:id',async (req, res) =>{
     const {id} = req.params;
+    console.log('Fetch todo status', id);
     const todoModel = await TodoModel.findById(id);
     if (todoModel){
         return res.status(200).json({
@@ -78,6 +80,7 @@ app.get('/todos/:id',async (req, res) =>{
 ///create one todo
 app.post('/todo', async (req, res) =>{
     const {title,description,date_time} = req.body;
+    console.log('Fetch todo status', {title,description,date_time});
     const todoModel = await TodoModel.create({
         title,
         description,
@@ -101,8 +104,9 @@ app.post('/todo', async (req, res) =>{
 ///update a todo
 app.patch('/todos/:id', async (req, res) =>{
     const {id} =req.params;
+    
     const{status}=req.body;
-
+    console.log('Fetch todo status', status);
     const todoModel= await TodoModel.updateOne(
         {status:status}).where({_id : id})
     
