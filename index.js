@@ -3,17 +3,20 @@ import express from 'express';
 import Mongoose  from 'mongoose';
 import TodoModel from './schemas/todo_schema.js';
 import cors from 'cors';
+
 dotenv.config()
 
 const app = express();
 //getting values in json format
-app.use(cors())
+
 app.use(express.json());
+app.use(cors())
+
 const port = 3000 || process.env.PORT;
 const db = process.env.DB_URL;
 
 
-Mongoose.connect('mongodb+srv://db_admin:admin1234@cluster0.xzybz.mongodb.net/todo_db?retryWrites=true&w=majority',{
+Mongoose.connect(db,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() =>{
@@ -72,9 +75,9 @@ app.get('/todos/:id',async (req, res) =>{
     }
 })
 
-///post one todo
-app.post('/todos/', async (req, res) =>{
-    const {title,description,date_time,status} = req.body;
+///create one todo
+app.post('/todo', async (req, res) =>{
+    const {title,description,date_time} = req.body;
     const todoModel = await TodoModel.create({
         title,
         description,
@@ -83,7 +86,7 @@ app.post('/todos/', async (req, res) =>{
     if (todoModel){
         return res.status(201).json({
             status : true,
-            message: "Todos fetched successfully",
+            message: "Todos created",
             data: todoModel
             
         })
@@ -104,7 +107,7 @@ app.patch('/todos/:id', async (req, res) =>{
         {status:status}).where({_id : id})
     
     if (todoModel){
-        return res.status(201).json({
+        return res.status(200).json({
             status : true,
             message: "Todos updated successfully",
             data: todoModel    
@@ -120,9 +123,9 @@ app.patch('/todos/:id', async (req, res) =>{
 app.delete('/todos/:id', async (req, res) =>{
     const todoModel = await TodoModel.findByIdAndDelete(req.params.id);
     if (todoModel){
-        return res.status(201).json({
+        return res.status(200).json({
             status : true,
-            message: "Todos deleted successfully",
+            message: "Todo deleted",
             data: todoModel
             
         })
